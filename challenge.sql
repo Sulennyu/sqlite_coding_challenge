@@ -17,6 +17,22 @@ JOIN orders o ON o.id = oi.order_id
 GROUP BY p.category 
 ORDER BY revenue DESC;
 
+-- Task 3 
+SELECT e.first_name, e.last_name, d.name AS department,
+e.salary,
+da.avg 
+FROM employees e
+JOIN departments d ON e.department_id = d.id
+JOIN (
+    SELECT department_id, AVG(salary) AS avg
+    FROM employees 
+    GROUP BY department_id
+) AS da ON e.department_id = da.department_id
+WHERE e.salary > da.avg
+ORDER BY d.name, e.salary DESC;
+
+
+
 
 
 
