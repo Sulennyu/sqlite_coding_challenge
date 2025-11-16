@@ -31,6 +31,16 @@ JOIN (
 WHERE e.salary > da.avg
 ORDER BY d.name, e.salary DESC;
 
+-- Task 4 
+SELECT city,
+COUNT(*) AS gold_customer_count
+FROM customers
+WHERE loyalty_level = 'Gold'
+GROUP BY city
+ORDER BY gold_customer_count DESC, city;
+
+
+
 
 
 
