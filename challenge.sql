@@ -1,7 +1,7 @@
 --Tools used: VSCode + SQLTools (SQLite Viewer)
---Results validated by executing each query independently 
---on the bais_sqlite_lab file and confirming the output matched requirements. 
---Also made sure the SQL ran without errors or crashes. 
+--Results validated by executing each query independently on the bais_sqlite_lab file.
+--With this information I was able to confirm if the outputs matched requirements. 
+--Also made sure the SQL ran without errors or crashes.
 
 -- Task 1 
 SELECT c.first_name || ' ' || c.last_name AS customer_name,
@@ -16,24 +16,23 @@ LIMIT 5;
 -- Task 2 
 SELECT p.category,
 SUM(oi.quantity * oi.unit_price) AS revenue
-FROM order_items oi
-JOIN products p ON p.id = oi.product_id
-JOIN orders o ON o.id = oi.order_id
+FROM products p
+JOIN order_items oi ON oi.product_id = p.id
 GROUP BY p.category 
 ORDER BY revenue DESC;
 
 -- Task 3 
 SELECT e.first_name, e.last_name, d.name AS department,
 e.salary,
-da.avg 
+dep.avg 
 FROM employees e
 JOIN departments d ON e.department_id = d.id
 JOIN (
     SELECT department_id,ROUND(AVG(salary)) AS avg
     FROM employees 
     GROUP BY department_id
-) AS da ON e.department_id = da.department_id
-WHERE e.salary > da.avg
+) AS dep ON e.department_id = dep.department_id
+WHERE e.salary > dep.avg
 ORDER BY d.name, e.salary DESC;
 
 -- Task 4 
